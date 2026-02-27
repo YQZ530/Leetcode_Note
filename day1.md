@@ -5,7 +5,7 @@
 [Course link](https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#%E6%80%9D%E8%B7%AF)
 
 两种写法：while (left <= right) 和 while (left < right)，前者左闭右闭，需要left=mid+1, right=mid-1，因为middle一定不是target，后者左闭右开，所以right得等于middle。
-
+ 
 ```
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
