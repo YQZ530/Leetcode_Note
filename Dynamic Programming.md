@@ -64,3 +64,17 @@ if(dp[i][j] is true and j-i+1 > max length
 遍历顺序， 下到上，左到右
    
 
+## 1035
+
+dp 为n1[i] n2[j] longest subsequence
+
+i =1..n
+j =1..m
+if n1[i] == n2[j]
+   dp[i][j] = dp[i-1][j-1] +1;  i+1, j+1
+else:
+
+   dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+ 但需要小心边界问题。 当i，j= 0， dp[-1][-1] is oob.
+ 所以dp 应该大一点
+   
