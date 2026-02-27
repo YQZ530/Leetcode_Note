@@ -41,8 +41,26 @@ if(dp[i][j] is true and j-i+1 > max length
    dp[i][j] = true
 
     然后数多少 dp[i][j] is T
-  
+
    
 4. intial dp[i][j] =1
 5. 下到上， 左到右
+
+
+  ## 516 Longest Palindromic Subsequence
+注意题目要求是subsequence
+1. dp table 记录 substRing i..j 的最长subsequence
+2. s[i] == s[j]
+   情况1 j-i +1 距离<=1，比如aa (但已经在情况2 里面）
+   dp[i][j] = +=1
+
+    情况2 i...j 距离大于二 比如 abba  or abca
+      dp[i][j]   = dp[i+1][j-1] +2
+ # 
+   if  s[i] != s[j]
+   
+      dp[i][j]   = max( dp[i][j-1], dp[i+1][j])
+
+遍历顺序， 下到上，左到右
+   
 
