@@ -29,7 +29,8 @@ if(dp[i][j] is true and j-i+1 > max length
 ```
 
 ```
-Similar question 647
+相似
+##  647 Palindromic Substrings 
 
 1. dp table 记录 substRing i..j 是不是回文
 2. s[i] == s[j]
@@ -44,3 +45,4 @@ Similar question 647
    
 4. intial dp[i][j] =1
 5. 下到上， 左到右
+
