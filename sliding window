@@ -1,0 +1,15 @@
+LC 239, lc 643 固定window size
+
+for i ...n:
+
+   # first maintaining queue with cur element
+          # push element to queue
+          depend on how you wanna manage in the queue, sometime just simple push
+          
+          # pop element to queue 
+          check i-k >=0  & check queue is not empty and queue[0] is s[i-k]
+   # when cur window has more than k element, record max value
+   if i > k-1: ...
+      
+
+
