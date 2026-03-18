@@ -64,6 +64,43 @@ Old Python plugin workflow:
 * Ride Service → Driver Service: calls Driver Service to find nearby drivers.
 * gRPC ensures **fast and reliable internal communication**.
 
+
+
+# Choosing Between WebSocket, SSE, or HTTP (Long Polling) for Real-Time Problems
+
+## Key Consideration
+
+* **WebSocket**: Each connection is **stateful**, which makes horizontal scaling challenging when handling millions of concurrent connections.
+* Choose the protocol based on **directionality of updates** and **frequency of client-server messages**.
+
+---
+## Example: Updating Driver Location in Rider App
+
+### 1. Less Thoughtful Solution
+
+* Use WebSocket for **everything**:
+
+  * Bidirectional connection: driver ↔ rider app.
+  * Can send driver updates back and forth.
+* ❌ Problem: Introduces complexity with **millions of open connections**, hard to scale horizontally.
+
+### 2. Thoughtful Solution
+
+#### Server-Sent Events (SSE)
+
+* **One-way server → client** updates.
+* Rider only **receives driver location**, no need to push messages back.
+* ✅ Simpler and sufficient for many real-time notifications.
+
+#### HTTP with Long Polling
+
+* Client repeatedly sends requests to check for updates.
+* Useful if updates are **infrequent** or if **SSE/WebSocket is not feasible**.
+* ❌ Higher overhead than SSE, but easier to implement in simple setups.
+
+
+
+
 ---
 
 ## 5. Networking Layers (TCP/IP Model + OSI Analogy)
@@ -79,13 +116,6 @@ Old Python plugin workflow:
 | Physical        | Sends bits over wires/fiber/radio                               | Post office moves the mail physically                   |
 
 ---
-
-### ✅ Notes / Fixes Made
-
-1. Clarified SSE vs WebSocket usage and directionality.
-2. Corrected some grammar and spelling (e.g., “frequenctly” → “frequently”).
-3. gRPC is **internal only**, not just “less friendly to web browsers”.
-4. Added more precise analogy for TCP/IP layers.
 
 
 
