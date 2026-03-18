@@ -52,3 +52,41 @@ Ride Service calls Driver Service to find nearby drivers
 
 
 
+Backround infor supplement:
+
+
+1.Application Layer (HTTP)
+You type a URL or click a button → your app generates a request
+Adds headers, method (GET/POST), etc.
+
+2.Presentation Layer
+
+Encodes the data (UTF-8, JSON, Protobuf)
+Maybe compresses or encrypts it (TLS)
+
+3.Session Layer
+
+Keeps track of which session/connection this request belongs to (cookies, session IDs)
+
+4.Transport Layer (TCP)
+
+Splits the message into packets
+
+Adds sequence numbers for ordering and checksum for reliability
+
+5.Network Layer (IP)
+
+Adds source/destination IP addresses
+Decides how to route the packet through the network
+
+6.Data Link Layer
+Converts packets into frames for your network interface (Ethernet/Wi-Fi)
+Adds MAC addresses for local delivery
+
+7.Physical Layer
+Sends the actual bits over wires, fiber, or radio'
+
+Think of analgy of writing letter:
+1. write content (application)- > translate in right langueage(presentation)-> put date for reference(session) -> put in multiple envelopes for realiablity( Transport)-> put desitantion address (Network to lookup)-> hand to post office(data link
+   -> the post office move it(physical)
+
