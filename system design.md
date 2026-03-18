@@ -1,92 +1,91 @@
 
-communication protocol in networking
-HTTP is like sending email, you wait, send and get reply; client initiates communication; communication request-driven; need to load header.
+# Communication Protocols in Networking
 
-Real-time update
-Server-Sent Event(SSE) -build on top of HTTP, the connection is keep open, server send update as they happen
-for example, driver location updated to rider 
-- rider no need to frequently send out message to get driver current location
-- riderjust need initial message
-  
-Rider wants updates like:
-“Driver accepted your ride”
-“Driver is arriving”
-“Ride started”
-Server pushes these events to the client.
+## 1. HTTP
 
+* Analogy: Like sending an email — you send a message and wait for a reply.
+* **Client-initiated** communication.
+* Request-driven: client sends a request, server responds.
+* Requires sending headers with each request → overhead can be high.
+* Connection is short-lived.
 
-websocket is **bidirectional** connection like phone call, both server and client can sent out data anytime
-
-Example: driver(client) send to driver app(server)
-GPS coordinates every second
-Status updates (“Arrived”, “Picked up”, etc.)
-better use websocket because driver(clients) frequenctly send out loc to server
-
-
-
-HTTPs
-Can think of the old Upython plugin,  first start python server, waiting for response, then unity send a command, server open a thread to run that task, then return when complete; the connection has short timelimited;  request-driven
-
-| Feature    | HTTP            | SSE             | WebSocket  |
-| ---------- | --------------- | --------------- | ---------- |
-| Direction  | Client → Server | Server → Client | Both ways  |
-| Connection | Short-lived     | Long-lived      | Long-lived |
-| Real-time  | ❌              | ✅ (one-way)   | ✅ (full) | 
-| Complexity | Low             | Low             | Medium     |
-| Overhead   | High (repeated) | Low             | Very low   |
-
-
-
-
-gRPC (Remote Procedure Call) framekwork for *internal* service-to-service communication; use binary serialization and HTTP/2
-significantly faster than JSON over HTTP; but binary serialization make less friendly to web browswer;  not use for public facing API, used for internal micro services
-COmmon practice is REST for external  API and gRPC
 Example:
-Uber-like System (Internal Microservices)
+Old Python plugin workflow:
 
-Ride Service → Driver Service
-Ride Service calls Driver Service to find nearby drivers
--Uses gRPC for fast, reliable communication
--Internal only — not exposed to rider app directly
+1. Start Python server.
+2. Unity sends a command → server opens a thread, executes task, and returns result.
+
+---
+
+## 2. Real-Time Updates
+
+### Server-Sent Events (SSE)
+
+* Built on top of HTTP.
+* **Long-lived connection**: server pushes updates as they happen.
+* **One-way**: server → client.
+* Example: Rider app receives updates without polling:
+
+  * “Driver accepted your ride”
+  * “Driver is arriving”
+  * “Ride started”
+* **Use case**: client mostly listens for updates (e.g., rider tracking driver location).
+
+### WebSocket
+
+* **Bidirectional** connection — both server and client can send data anytime.
+* Example: Driver app sends GPS coordinates to server every second.
+* Better than HTTP when clients frequently send data.
+* **Use case**: high-frequency updates from clients, like driver location.
+
+---
+
+## 3. Comparison Table
+
+| Feature    | HTTP                    | SSE             | WebSocket  |
+| ---------- | ----------------------- | --------------- | ---------- |
+| Direction  | Client → Server         | Server → Client | Both ways  |
+| Connection | Short-lived             | Long-lived      | Long-lived |
+| Real-time  | ❌                       | ✅ (one-way)     | ✅ (full)   |
+| Complexity | Low                     | Low             | Medium     |
+| Overhead   | High (repeated headers) | Low             | Very low   |
+
+---
+
+## 4. gRPC
+
+* Framework for **internal service-to-service communication**.
+* Uses **binary serialization** and HTTP/2 → faster than JSON over HTTP.
+* Not browser-friendly → not used for public-facing APIs.
+* Common practice: REST for external APIs, gRPC for internal microservices.
+
+### Example: Uber-like System (Internal Microservices)
+
+* Ride Service → Driver Service: calls Driver Service to find nearby drivers.
+* gRPC ensures **fast and reliable internal communication**.
+
+---
+
+## 5. Networking Layers (TCP/IP Model + OSI Analogy)
+
+| Layer           | Function                                                        | Analogy                                                 |
+| --------------- | --------------------------------------------------------------- | ------------------------------------------------------- |
+| Application     | Your app generates a request (GET/POST, headers)                | Writing the content of a letter                         |
+| Presentation    | Encodes data (UTF-8, JSON, Protobuf), compresses/encrypts (TLS) | Translating letter to proper language                   |
+| Session         | Tracks session/connection (cookies, session IDs)                | Adding date/reference for context                       |
+| Transport (TCP) | Splits message into packets, adds sequence numbers & checksums  | Putting content into multiple envelopes for reliability |
+| Network (IP)    | Adds source/destination IP, routes packet                       | Writing destination address                             |
+| Data Link       | Converts packets to frames, adds MAC addresses                  | Handing envelope to local post office                   |
+| Physical        | Sends bits over wires/fiber/radio                               | Post office moves the mail physically                   |
+
+---
+
+### ✅ Notes / Fixes Made
+
+1. Clarified SSE vs WebSocket usage and directionality.
+2. Corrected some grammar and spelling (e.g., “frequenctly” → “frequently”).
+3. gRPC is **internal only**, not just “less friendly to web browsers”.
+4. Added more precise analogy for TCP/IP layers.
 
 
-
-
-Backround infor supplement:
-
-
-1.Application Layer (HTTP)
-You type a URL or click a button → your app generates a request
-Adds headers, method (GET/POST), etc.
-
-2.Presentation Layer
-
-Encodes the data (UTF-8, JSON, Protobuf)
-Maybe compresses or encrypts it (TLS)
-
-3.Session Layer
-
-Keeps track of which session/connection this request belongs to (cookies, session IDs)
-
-4.Transport Layer (TCP)
-
-Splits the message into packets
-
-Adds sequence numbers for ordering and checksum for reliability
-
-5.Network Layer (IP)
-
-Adds source/destination IP addresses
-Decides how to route the packet through the network
-
-6.Data Link Layer
-Converts packets into frames for your network interface (Ethernet/Wi-Fi)
-Adds MAC addresses for local delivery
-
-7.Physical Layer
-Sends the actual bits over wires, fiber, or radio'
-
-Think of analgy of writing letter:
-1. write content (application)- > translate in right langueage(presentation)-> put date for reference(session) -> put in multiple envelopes for realiablity( Transport)-> put desitantion address (Network to lookup)-> hand to post office(data link
-   -> the post office move it(physical)
 
