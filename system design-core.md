@@ -1,0 +1,159 @@
+
+# Sharding
+
+## Definition
+
+- splitting data across **multiple independent database servers (shards)**.
+- Used when a **single database can no longer handle the load** (especially writes or data size).
+
+---
+
+## When You Don’t Need Sharding Yet
+
+- Modern databases like PostgreSQL or MySQL can handle:
+  * **10K–50K+ writes/sec**
+  * Very large datasets (hundreds of GB to TB)
+
+### Example
+
+* **100K reads/sec + 10K writes/sec**
+
+* Use **read replicas**
+* Primary handles writes, replicas handle reads
+👉 No need for sharding yet.
+
+---
+
+## Scaling Strategy (Correct Order)
+
+1. Optimize queries (indexes, caching)
+2. Vertical scaling (bigger machine)
+3. Add read replicas
+4. Partition tables (within one DB)
+5.  Sharding (last resort)
+
+---------------
+
+# Consistent Hashing
+
+## What Problem It Solves
+
+* Distributes data evenly across servers
+* Minimizes data movement when:
+
+  * Adding a server
+  * Removing a server
+
+General usage:
+ distrubte cached like redis use it to distribute keys across cache node ; distributed databased used it for sharding; some load balancer use it assign request backend server. CDN use it to route request to edge server.
+In interview: 
+1. distributed cache topic, we use consistent hashing to distribute data across cache node;  
+2. database sharding - we'll use consistent hashing for the shard key
+
+---
+
+## How It Works
+
+* Think of a **hash ring (circular space)**:
+
+  * Both **servers and keys** are hashed onto the ring
+* Each key is assigned to:
+
+  * The **next server clockwise**
+
+---
+
+## Behavior
+
+### Adding a Server
+
+* Only keys between:
+
+  * **new server → previous server**
+* Need to move
+
+✅ Minimal data reshuffling
+
+---
+
+### Removing a Server
+
+* Its keys move to:
+
+  * The **next server clockwise**
+
+---
+
+## Why It’s Useful
+
+* Avoids massive rehashing (unlike simple hash mod N)
+* Common in:
+
+  * Distributed caches (e.g., Redis clusters)
+  * Sharded systems
+
+---
+### 4. Important Missing Insight (VERY IMPORTANT)
+
+👉 Consistent hashing is:
+
+* **Mostly used for caching and distributed systems**
+* **Not always used directly for database sharding**
+
+In DB sharding, more common strategies:
+
+* Range-based sharding (user_id 1–1M, 1M–2M)
+* Hash-based sharding (hash(user_id) % N)
+
+ When Consistent Hashing *Might* Be Used in Databases
+
+* When:
+  * Nodes frequently join/leave
+  * You want **minimal data movement**
+* But:
+  * Adds complexity
+  * Makes querying harder
+
+
+
+# Interview Insight 
+
+
+> We use consistent hashing to distribute keys across cache nodes.
+> When a node is added or removed, only a small portion of keys need to be remapped.
+
+>  For database sharding, I would typically use hash-based or range-based partitioning. Consistent hashing is an option if we expect frequent node changes, but it adds complexity and is less common for relational databases.
+
+
+
+---
+
+# Consistent Hashing
+
+## General Usage
+
+Consistent hashing is used to **distribute load/data across nodes with minimal reshuffling** when nodes change.
+
+### Common Use Cases
+
+* **Distributed Cache**
+
+  * Systems like Redis clusters use it to distribute keys across cache nodes.
+
+* **Load Balancing**
+
+  * Some load balancers use it to map requests (e.g., by user ID) to same backend servers for better session stickiness or better cache locality.
+
+
+* **CDN Routing**
+
+  * CDNs may use hashing strategies to route users to specific edge servers (though geo-based routing is more common).
+
+* **Distributed Systems (General)**
+
+  * Any system where nodes frequently join/leave and you want minimal data movement.
+
+
+
+
+
