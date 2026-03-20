@@ -104,3 +104,41 @@
 
 
 
+
+# Search-Optimized Databases
+
+## Concept
+
+* Specialized databases designed to handle **full-text search** efficiently.
+
+* Standard relational queries are **not optimized** for full-text search.
+
+* Techniques used to speed up searches:
+
+  1. **Indexing**
+  2. **Tokenization**
+  3. **Stemming**
+
+* Functionally, they often build an **inverted index** to quickly find documents containing given words.
+
+---
+
+## Key Concepts
+
+| Concept            | Description                                                                                             |
+| ------------------ | ------------------------------------------------------------------------------------------------------- |
+| **Inverted Index** | Maps **words → documents** where they appear. Enables fast lookup.                                      |
+| **Tokenization**   | Break text into words or terms for indexing.                                                            |
+| **Stemming**       | Reduce words to their **root form** (e.g., “running” → “run”) to match queries.                         |
+| **Fuzzy Search**   | Tolerates **misspellings or variations**. Uses techniques like **edit distance** to find similar words. |
+
+---
+
+## Scaling
+
+* Scale by **adding nodes to a cluster**.
+* Shard data across nodes for **horizontal scaling**.
+* Often used in **distributed search engines** like:
+
+  * Elasticsearch
+  * Apache Solr
