@@ -1,0 +1,26 @@
+
+
+#lc541  反转字符串II
+s[i:i+k] -> 反转  
+会根据切片规则自动截取：
+如果剩余长度 ≥ k → 截取 k 个 → 反转
+如果剩余长度 < k → 截取剩余长度 → 反转
+也就是说，Python 的切片 不会报错，也不会越界
+
+2 pointers 解法
+把字符串转成 list，方便原地修改
+每次处理前 k 个字符：
+用两个指针 left、right，分别指向要反转段的两端
+交换 s[left] 和 s[right]，逐步收缩指针
+每次跳过 2k 个字符，重复以上操作
+
+
+
+#lc 206翻转链表 , 注意要保存 cur.next 到临时指针 
+next_temp = curr.next → 先保存下一个节点
+curr.next = prev → 反转当前节点指针
+
+prev = curr → prev 指向当前节点
+curr = next_temp → curr 移动到下一个节点
+
+#lc142 需要理解fast slow pointer

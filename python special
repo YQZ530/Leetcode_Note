@@ -1,0 +1,8 @@
+while CONDITION:
+    # loop body
+else:
+    # else body
+
+
+The else block executes only if the loop completes normally (i.e., the condition becomes False).
+If the loop is broken early with break, the else block is skipped.

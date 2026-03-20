@@ -118,4 +118,39 @@ Old Python plugin workflow:
 ---
 
 
+Quick Summary
 
+## Protocols for Real-Time Communication
+
+### 1. HTTP
+
+* Request-driven, **client-initiated**
+* Short-lived, stateless
+* High overhead (headers + repeated requests)
+* Good for normal request-response operations
+
+---
+
+### 2. Server-Sent Events (SSE)
+
+* One-way server → client streaming
+* Built on top of HTTP
+* Long-lived connection
+* Ideal for **real-time updates where client does NOT send frequent data**
+
+  * Example: Rider app receiving driver location updates
+
+---
+
+### 3. WebSocket
+
+* **Bidirectional communication** (server ↔ client)
+* Persistent connection
+* Each client = one open connection
+* Scaling challenge:
+
+  * Hard to manage millions of concurrent connections
+  * Requires **connection-aware load balancing**, sticky sessions, or shared state
+* Best for **frequent two-way communication**, e.g., live GPS updates from drivers
+
+---
