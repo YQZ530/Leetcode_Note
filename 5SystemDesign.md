@@ -115,8 +115,6 @@ Great — this is a **very important concept**, especially when talking about lo
 
   > Requests from the same user are always routed to the **same server**.
 
----
-
 ## Why Do We Need It?
 
 Normally, a load balancer distributes requests like this:
@@ -126,7 +124,6 @@ User → Load Balancer → Server A / Server B / Server C (random)
 ```
 
 But sometimes, the server stores **session state locally**, such as:
-
 * Login session
 * Shopping cart
 * Temporary user data
@@ -143,16 +140,12 @@ User → Load Balancer → Server A (always)
   * User → Server mapping
 * Future requests from that user go to the same server
 
----
 
 ## How It Works
-
-Common methods:
 
 1. **Cookie-based**
 
    * Load balancer sets a cookie like:
-
      ```
      SERVER_ID = A
      ```
@@ -198,7 +191,10 @@ User → Load Balancer → Any Server → Redis (shared session)
 * No need for sticky sessions
 
 ---
+异步（Asynchronous）
 
+异步 = 发出去后不用等对方完成就继续做自己的事情
+---
 
 
 Queue
