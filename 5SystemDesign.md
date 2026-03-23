@@ -191,11 +191,14 @@ User → Load Balancer → Any Server → Redis (shared session)
 * No need for sticky sessions
 
 ---
+
+
 异步（Asynchronous）
 
 异步 = 发出去后不用等对方完成就继续做自己的事情
----
 
+
+---
 
 Queue
 - serve as buffer for busty traffic , distributing work across a system
