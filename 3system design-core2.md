@@ -132,6 +132,11 @@
 | **Stemming**       | Reduce words to their **root form** (e.g., “running” → “run”) to match queries.                         |
 | **Fuzzy Search**   | Tolerates **misspellings or variations**. Uses techniques like **edit distance** to find similar words. |
 
+
+The pipeline works in a few steps. When an article is ingested, the text engine tokenizes the document into individual words and uses stemming to reduce them to their root forms (so 'investing' and 'invests' both become 'invest'). It stores this in the inverted index.
+
+At query time, if a user types 'invsting', the database doesn't just fail. It applies fuzzy search algorithms—specifically calculating the Levenshtein edit distance—to realize 'invsting' is only one character away from the root word 'invest'. It then instantly retrieves the mapped documents, completely bypassing the need for a table scan."
+
 ---
 
 ## Scaling

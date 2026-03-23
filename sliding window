@@ -12,7 +12,7 @@ for i ...n:
    if i > k-1: ...
       
 
-lc 3, lc 209, lc 76, 424
+lc 3, lc 209, lc 76, 424,84,862
 left =0
 
 for right in range()
@@ -23,6 +23,7 @@ for right in range()
 ** update min/max sometime is in while loop, when the window is match with condition
 sometimes is the opoosite, the windwo shrink when condision is not what we want, so we update min/max outside of while loop
 
-TODO 
-424,1438
-862
+
+862 - prefix sum used when nums arr contain neg
+TODO:
+1438

@@ -6,3 +6,12 @@ else:
 
 The else block executes only if the loop completes normally (i.e., the condition becomes False).
 If the loop is broken early with break, the else block is skipped.
+
+
+q = defaultdict(int)
+q[ ] +=1
+
+q= deque()
+q.pop() pop last elem
+q.popleft() pop first
+q. append insert last
