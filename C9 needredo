@@ -1,0 +1,16 @@
+LC 329 
+dp mono + dfs
+
+We run DFS from each cell (i, j), and dfs(i, j) represents the longest increasing path starting from (i, j).
+Once computed, we store it in dp[i][j].
+If we visit (i, j) again and dp[i][j] != 0, we directly return it
+
+
+
+
+lc 37  数独
+
+todo 576
+
+417
+
