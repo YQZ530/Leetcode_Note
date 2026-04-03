@@ -1,0 +1,37 @@
+
+RAG search strategy
+MQE (Multi query Expansion)
+- create variant of same question
+- ex. how to learn python -> introduction of python, learning way of python, python coding instruction
+- it can understand user intension and 
+
+HyDE
+-Hypothetical document embeddings
+- idea is that in the embedding space, the embedding for question is different from document.
+-generate assumption for particulare question
+- good for domain knowledge
+
+
+Agent evaluation 
+
+BFCL (Berkeley Function Calling Leaderboard)
+-use AST (Abstract syntax tree) for semantic comparison
+ - JSON -> AST  
+   -function call are nodes, parameters/arguemnt are childe node, return values are leaf nodes
+   - semantic comparison
+
+
+###How you ensure an AI agent dont provide false infor
+
+1. data-level soluation : ensure model has access reliable knowledge bases, or validated dataset
+grounding the model in verified data, it is less likely to generate unsupported claims
+
+2. model level
+we can use model prompting strategy like chain-of-thought reasoning, fact-check prompt, 
+-penalized unsupported statement in finue tuning,
+
+3. Post processing
+after genreation  it can verify output using logic checks or retrieval vairfiation, like cross checcking fast against knoladge database, output answer aobe a reliability threshold.
+
+
+###What would you do if an agent keeps failing when calling a tool?
