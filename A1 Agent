@@ -35,3 +35,15 @@ after genreation  it can verify output using logic checks or retrieval vairfiati
 
 
 ###What would you do if an agent keeps failing when calling a tool?
+
+1. implemnt a retry limit-> if a tool call fail, the agent should only try a fixed number of times
+
+
+2.Depend on what error
+-if transient error( network hiccups, service temp unavilable-> retry at different time)
+-permanent error, authentication faiiure, ->retry wont help
+-if retries fail, switch to a fallback behavior, call alternative tool
+- response with use , log error
+
+
+-Why you use X agent
